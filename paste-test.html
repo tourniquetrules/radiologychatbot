@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paste Test - RadAI Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            min-height: 100px;
+            font-family: inherit;
+        }
+        .info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .test-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>📋 Paste Functionality Test</h1>
+        
+        <div class="info">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Copy some text (Ctrl+C or Cmd+C)</li>
+                <li>Click in the textarea below</li>
+                <li>Try to paste using:
+                    <ul>
+                        <li><strong>Keyboard:</strong> Ctrl+V (Windows/Linux) or Cmd+V (Mac)</li>
+                        <li><strong>Right-click:</strong> Right-click → Paste</li>
+                        <li><strong>Long-press:</strong> On mobile, long-press → Paste</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <h3>Test Textarea:</h3>
+        <textarea id="testTextarea" placeholder="Try pasting text here..."></textarea>
+        
+        <div>
+            <button class="test-button" onclick="clearTextarea()">Clear</button>
+            <button class="test-button" onclick="testPaste()">Test Paste API</button>
+            <button class="test-button" onclick="showEvents()">Show Events</button>
+        </div>
+
+        <div id="eventLog" class="result" style="display: none;">
+            <h4>Event Log:</h4>
+            <pre id="logContent"></pre>
+        </div>
+
+        <div id="testResult" class="result" style="display: none;">
+            <h4>Paste Result:</h4>
+            <pre id="resultContent"></pre>
+        </div>
+
+        <div class="info">
+            <h3>🔧 Troubleshooting:</h3>
+            <ul>
+                <li><strong>Mobile:</strong> Make sure you're using a supported browser (Safari on iOS, Chrome on Android)</li>
+                <li><strong>HTTPS:</strong> Some paste features require HTTPS in production</li>
+                <li><strong>Permissions:</strong> Check if clipboard access is blocked in browser settings</li>
+                <li><strong>Focus:</strong> Make sure the textarea is focused (clicked) before pasting</li>
+            </ul>
+            
+            <p><a href="/">← Back to RadAI Chat</a></p>
+        </div>
+    </div>
+
+    <script>
+        const textarea = document.getElementById('testTextarea');
+        const eventLog = document.getElementById('eventLog');
+        const logContent = document.getElementById('logContent');
+        const testResult = document.getElementById('testResult');
+        const resultContent = document.getElementById('resultContent');
+        
+        let events = [];
+
+        function logEvent(eventType, data) {
+            const timestamp = new Date().toLocaleTimeString();
+            events.push(`[${timestamp}] ${eventType}: ${JSON.stringify(data)}`);
+            updateEventLog();
+        }
+
+        function updateEventLog() {
+            logContent.textContent = events.slice(-10).join('\n');
+        }
+
+        // Add event listeners
+        textarea.addEventListener('paste', (e) => {
+            logEvent('paste', {
+                clipboardData: e.clipboardData ? 'available' : 'not available',
+                types: e.clipboardData ? Array.from(e.clipboardData.types) : [],
+                preventDefault: false
+            });
+        });
+
+        textarea.addEventListener('input', (e) => {
+            logEvent('input', {
+                value: e.target.value.substring(0, 50) + (e.target.value.length > 50 ? '...' : ''),
+                length: e.target.value.length
+            });
+        });
+
+        textarea.addEventListener('focus', (e) => {
+            logEvent('focus', { focused: true });
+        });
+
+        textarea.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'v') {
+                logEvent('keydown', { key: 'Ctrl+V', prevented: false });
+            }
+        });
+
+        function clearTextarea() {
+            textarea.value = '';
+            events = [];
+            updateEventLog();
+            testResult.style.display = 'none';
+            logEvent('clear', { action: 'manual clear' });
+        }
+
+        async function testPaste() {
+            try {
+                if (navigator.clipboard && navigator.clipboard.readText) {
+                    const text = await navigator.clipboard.readText();
+                    textarea.value = text;
+                    resultContent.textContent = `✅ Clipboard API Success:\n"${text}"`;
+                    testResult.style.display = 'block';
+                    logEvent('clipboard-api', { success: true, length: text.length });
+                } else {
+                    resultContent.textContent = '❌ Clipboard API not available';
+                    testResult.style.display = 'block';
+                    logEvent('clipboard-api', { success: false, reason: 'API not available' });
+                }
+            } catch (error) {
+                resultContent.textContent = `❌ Clipboard API Error: ${error.message}`;
+                testResult.style.display = 'block';
+                logEvent('clipboard-api', { success: false, error: error.message });
+            }
+        }
+
+        function showEvents() {
+            eventLog.style.display = eventLog.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Auto-show events panel
+        setTimeout(() => {
+            eventLog.style.display = 'block';
+            logEvent('ready', { message: 'Test page loaded' });
+        }, 1000);
+    </script>
+</body>
+</html>

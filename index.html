@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>RadAI Chat - Medical Radiology Assistant</title>
+    
+    <!-- Meta tags for mobile and PWA -->
+    <meta name="description" content="AI-powered radiology assistant for medical image analysis and consultation">
+    <meta name="theme-color" content="#3498db">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="RadAI Chat">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Configuration -->
+        
+    <script src="config.js?v=2025081801"></script>
+    
+</head>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-x-ray"></i>
+                    <span>RadAI Chat</span>
+                </div>
+                <div class="model-selector">
+                    <label for="modelSelect">Model:</label>
+                    <select id="modelSelect" class="model-dropdown">
+                        <option value="lingshu-7b">Lingshu-7B</option>
+                        <option value="medgemma-4b-it">MedGemma-4B-IT</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Chat Messages Container -->
+            <div class="chat-container" id="chatContainer">
+                <div class="welcome-message">
+                    <div class="welcome-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h2>Welcome to RadAI Chat</h2>
+                    <p>Your AI-powered radiology assistant. Upload medical images or ask questions about radiology procedures, diagnoses, and interpretations.</p>
+                    <div class="feature-highlights">
+                        <div class="feature">
+                            <i class="fas fa-upload"></i>
+                            <span>Upload Images</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-brain"></i>
+                            <span>AI Analysis</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Mobile Friendly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <div class="attachment-area" id="attachmentArea" style="display: none;">
+                        <div class="attached-image" id="attachedImage">
+                            <img id="previewImage" alt="Attached image">
+                            <button class="remove-attachment" id="removeAttachment">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="input-row">
+                        <button class="attach-btn" id="attachBtn" title="Attach Image">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <input type="file" id="fileInput" accept="image/*" capture="environment" style="display: none;">
+                        
+                        <div class="message-input-container">
+                            <textarea 
+                                id="messageInput" 
+                                placeholder="Ask about radiology images, procedures, or upload an image for analysis..."
+                                rows="1"
+                                spellcheck="true"
+                                autocomplete="off"
+                                autocorrect="on"
+                                autocapitalize="sentences"
+                                tabindex="0"
+                            ></textarea>
+                        </div>
+                        
+                        <button class="send-btn" id="sendBtn" disabled>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="loading-spinner">
+                <i class="fas fa-circle-notch fa-spin"></i>
+                <p>Processing your request...</p>
+            </div>
+        </div>
+
+        <!-- Error Toast -->
+        <div class="error-toast" id="errorToast" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorMessage"></span>
+            <button id="closeError"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js?v=2025081801"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+# RadAI Chat - .gitignore
+
+# Logs and runtime files
+*.log
+*.pid
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+.tmp
+
+# Node modules (if any)
+node_modules/
+
+# Test output
+test-output/
+
+# Local configuration overrides
+config.local.js
+server.local.py
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Runtime data that shouldn't be committed
+radai_server.log
+radai_server.pid

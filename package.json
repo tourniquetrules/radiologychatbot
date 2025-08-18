@@ -1,0 +1,30 @@
+{
+  "name": "radai-chat",
+  "version": "1.0.0",
+  "description": "AI-powered radiology assistant for medical image analysis and consultation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "python3 server.py",
+    "serve-simple": "python3 -m http.server 5000"
+  },
+  "keywords": [
+    "radiology",
+    "medical",
+    "ai",
+    "chatbot",
+    "healthcare",
+    "mobile"
+  ],
+  "author": "Hospital IT Department",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "homepage": "http://localhost:5000"
+}

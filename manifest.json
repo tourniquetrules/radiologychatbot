@@ -1,0 +1,31 @@
+{
+    "name": "RadAI Chat - Medical Radiology Assistant",
+    "short_name": "RadAI Chat",
+    "description": "AI-powered radiology assistant for medical image analysis and consultation",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#2c3e50",
+    "theme_color": "#3498db",
+    "orientation": "portrait-primary",
+    "categories": ["medical", "health", "productivity"],
+    "icons": [
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMyYzNlNTAiLz4KPHN2ZyB4PSI0OCIgeT0iNDgiIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9IiMzNDk4ZGIiPgo8cGF0aCBkPSJNMzg0IDMySDEyOGMtMTcuNjcgMC0zMiAxNC4zMy0zMiAzMnYzODRjMCAxNy42NyAxNC4zMyAzMiAzMiAzMmgyNTZjMTcuNjcgMCAzMi0xNC4zMyAzMi0zMlY2NGMwLTE3LjY3LTE0LjMzLTMyLTMyLTMyWk0xNjAgMTI4aDU2YzguODM3IDAgMTYgNy4xNjMgMTYgMTZzLTcuMTYzIDE2LTE2IDE2aC01NmMtOC44MzcgMC0xNi03LjE2My0xNi0xNnM3LjE2My0xNiAxNi0xNlptMTkyIDI1Nkg2MGMtOC44MzcgMC0xNi03LjE2My0xNi0xNnM3LjE2My0xNiAxNi0xNmgyOTJjOC44MzcgMCAxNiA3LjE2MyAxNiAxNnMtNy4xNjMgMTYtMTYgMTZabTAtNjRINjBjLTguODM3IDAtMTYtNy4xNjMtMTYtMTZzNy4xNjMtMTYgMTYtMTZoMjkyYzguODM3IDAgMTYgNy4xNjMgMTYgMTZzLTcuMTYzIDE2LTE2IDE2Wm0wLTY0SDI0OGMtOC44MzcgMC0xNi03LjE2My0xNi0xNnM3LjE2My0xNiAxNi0xNmgxMDRjOC44MzcgMCAxNiA3LjE2MyAxNiAxNnMtNy4xNjMgMTYtMTYgMTZaIi8+Cjwvc3ZnPgo8L3N2Zz4=",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9IiMyYzNlNTAiLz4KPHN2ZyB4PSIxMjgiIHk9IjEyOCIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSIjMzQ5OGRiIj4KPHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9IiMzNDk4ZGIiPgo8cGF0aCBkPSJNMzg0IDMySDEyOGMtMTcuNjcgMC0zMiAxNC4zMy0zMiAzMnYzODRjMCAxNy42NyAxNC4zMyAzMiAzMiAzMmgyNTZjMTcuNjcgMCAzMi0xNC4zMyAzMi0zMlY2NGMwLTE3LjY3LTE0LjMzLTMyLTMyLTMyWk0xNjAgMTI4aDU2YzguODM3IDAgMTYgNy4xNjMgMTYgMTZzLTcuMTYzIDE2LTE2IDE2aC01NmMtOC44MzcgMC0xNi03LjE2My0xNi0xNnM3LjE2My0xNiAxNi0xNlptMTkyIDI1Nkg2MGMtOC44MzcgMC0xNi03LjE2My0xNi0xNnM3LjE2My0xNiAxNi0xNmgyOTJjOC44MzcgMCAxNiA3LjE2MyAxNiAxNnMtNy4xNjMgMTYtMTYgMTZabTAtNjRINjBjLTguODM3IDAtMTYtNy4xNjMtMTYtMTZzNy4xNjMtMTYgMTYtMTZoMjkyYzguODM3IDAgMTYgNy4xNjMgMTYgMTZzLTcuMTYzIDE2LTE2IDE2Wm0wLTY0SDI0OGMtOC44MzcgMC0xNi03LjE2My0xNi0xNnM3LjE2My0xNiAxNi0xNmgxMDRjOC44MzcgMCAxNiA3LjE2MyAxNiAxNnMtNy4xNjMgMTYtMTYgMTZaIi8+Cjwvc3ZnPgo8L3N2Zz4KPC9zdmc+",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzY4IiBoZWlnaHQ9IjY0MCIgdmlld0JveD0iMCAwIDM2OCA2NDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNjgiIGhlaWdodD0iNjQwIiBmaWxsPSIjZjhmOWZhIi8+CjxyZWN0IHk9IjAiIHdpZHRoPSIzNjgiIGhlaWdodD0iODAiIGZpbGw9IiMyYzNlNTAiLz4KPHR3eHQgeD0iMTg0IiB5PSI0MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCI+UmFkQUkgQ2hhdDwvdGV4dD4KPHN2ZyB4PSIyMCIgeT0iMTAwIiB3aWR0aD0iMzI4IiBoZWlnaHQ9IjQwMCIgZmlsbD0id2hpdGUiIHJ4PSIxMCIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSI1NDAiIHI9IjIwIiBmaWxsPSIjMzQ5OGRiIi8+CjxyZWN0IHg9IjIwIiB5PSI1NjAiIHdpZHRoPSIzMjgiIGhlaWdodD0iNjAiIGZpbGw9IndoaXRlIiByeD0iMzAiLz4KPC9zdmc+",
+            "sizes": "360x640",
+            "type": "image/svg+xml",
+            "form_factor": "narrow"
+        }
+    ]
+}
