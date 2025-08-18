@@ -17,6 +17,7 @@ class RadiologyChat {
         this.initializeElements();
         this.bindEvents();
         this.setupAutoResize();
+        this.setupGlobalPaste();
         
         // Test connectivity on startup
         this.testConnectivity();
@@ -126,10 +127,34 @@ class RadiologyChat {
             }
         });
 
-        // Explicit paste event handler
+        // Enhanced paste event handler for both text and images
         this.elements.messageInput.addEventListener('paste', (e) => {
             console.log('Paste event detected:', e);
-            // Allow paste operation
+            
+            // Check if clipboard contains files (images)
+            const items = e.clipboardData?.items;
+            if (items) {
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i];
+                    console.log('Clipboard item:', item.type, item.kind);
+                    
+                    // Handle image paste
+                    if (item.type.startsWith('image/')) {
+                        console.log('Image detected in clipboard:', item.type);
+                        e.preventDefault(); // Prevent default paste behavior for images
+                        
+                        const file = item.getAsFile();
+                        if (file) {
+                            console.log('Processing pasted image:', file.name, file.size, file.type);
+                            this.handleFileSelection(file);
+                            this.showToast('Image pasted successfully! 📋🖼️', 'success');
+                            return; // Exit early since we handled the image
+                        }
+                    }
+                }
+            }
+            
+            // Handle text paste (default behavior)
             setTimeout(() => {
                 this.updateSendButtonState();
                 this.autoResize();
@@ -230,6 +255,45 @@ class RadiologyChat {
     preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
+    }
+
+    setupGlobalPaste() {
+        // Global paste handler for the entire document
+        document.addEventListener('paste', (e) => {
+            // Only handle paste if we're not already in an input field
+            const activeElement = document.activeElement;
+            const isInputActive = activeElement.tagName === 'INPUT' || 
+                                 activeElement.tagName === 'TEXTAREA' || 
+                                 activeElement.contentEditable === 'true';
+            
+            console.log('Global paste event detected. Active element:', activeElement.tagName);
+            
+            // Check if clipboard contains files (images)
+            const items = e.clipboardData?.items;
+            if (items) {
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i];
+                    
+                    // Handle image paste
+                    if (item.type.startsWith('image/')) {
+                        console.log('Image detected in global paste:', item.type);
+                        e.preventDefault(); // Prevent default paste behavior for images
+                        
+                        const file = item.getAsFile();
+                        if (file) {
+                            console.log('Processing globally pasted image:', file.name, file.size, file.type);
+                            this.handleFileSelection(file);
+                            this.showToast('Image pasted successfully! 📋🖼️', 'success');
+                            
+                            // Focus the message input to show the user where they can type
+                            this.elements.messageInput.focus();
+                            
+                            return; // Exit early since we handled the image
+                        }
+                    }
+                }
+            }
+        });
     }
 
     updateSendButtonState() {
