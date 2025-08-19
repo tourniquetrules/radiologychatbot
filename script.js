@@ -401,7 +401,7 @@ class RadiologyChat {
         const messages = [
             {
                 role: 'system',
-                content: 'You are a specialized medical AI assistant with advanced image analysis capabilities. You can examine medical images including X-rays, CT scans, MRIs, and other radiological studies. When provided with medical images, analyze them thoroughly and provide detailed observations about anatomical structures, potential abnormalities, and clinical insights. Always provide professional medical analysis while noting that your assessment should supplement, not replace, professional medical diagnosis.'
+                content: 'You are a specialized medical AI assistant with advanced image analysis capabilities. When analyzing medical images, you MUST use the sequential thinking tool to break down your analysis step-by-step. For each medical image: 1) First call the sequential thinking tool to organize your thoughts, 2) Examine anatomical structures systematically, 3) Identify any abnormalities or findings, 4) Provide differential diagnoses, 5) Suggest appropriate follow-up or recommendations. Always use sequential reasoning for thorough, professional medical analysis. Remember that your assessment supplements, not replaces, professional medical diagnosis.'
             }
         ];
 
@@ -485,7 +485,27 @@ class RadiologyChat {
             messages: messages,
             max_tokens: 1000,
             temperature: 0.7,
-            stream: false
+            stream: false,
+            tools: [
+                {
+                    type: "function",
+                    function: {
+                        name: "sequential_thinking",
+                        description: "Use this tool to think through complex problems step by step, especially for medical image analysis",
+                        parameters: {
+                            type: "object",
+                            properties: {
+                                thinking: {
+                                    type: "string",
+                                    description: "Your step-by-step thinking process for analyzing the medical image or question"
+                                }
+                            },
+                            required: ["thinking"]
+                        }
+                    }
+                }
+            ],
+            tool_choice: messageData.image ? "auto" : "none"  // Only use tools when there's an image
         };
 
         console.log('Making API request to:', this.buildApiUrl('v1/chat/completions'));
@@ -520,7 +540,26 @@ class RadiologyChat {
                 throw new Error('Invalid response format from API');
             }
 
-            return data.choices[0].message.content;
+            const message = data.choices[0].message;
+            
+            // Check if the model made tool calls
+            if (message.tool_calls && message.tool_calls.length > 0) {
+                console.log('Tool calls detected:', message.tool_calls);
+                
+                // For sequential thinking, we'll combine the tool call with the content
+                let responseContent = message.content || '';
+                
+                for (const toolCall of message.tool_calls) {
+                    if (toolCall.function && toolCall.function.name === 'sequential_thinking') {
+                        const thinking = JSON.parse(toolCall.function.arguments).thinking;
+                        responseContent = `**Sequential Analysis:**\n\n${thinking}\n\n${responseContent}`;
+                    }
+                }
+                
+                return responseContent;
+            }
+
+            return message.content;
 
         } catch (error) {
             console.error('API call failed:', error);
