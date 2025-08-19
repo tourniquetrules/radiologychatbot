@@ -70,7 +70,7 @@ class RadiologyChat {
 
     updateModelOptions(models) {
         const modelSelect = this.elements.modelSelect;
-        const currentModels = ['lingshu-7b', 'medgemma-4b-it'];
+        const currentModels = ['lingshu-7b'];
         
         // Check if our expected models are available
         const availableModels = models.filter(model => 
