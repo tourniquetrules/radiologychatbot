@@ -505,7 +505,7 @@ class RadiologyChat {
                     }
                 }
             ],
-            tool_choice: messageData.image ? "auto" : "none"  // Only use tools when there's an image
+            tool_choice: "auto"  // Always enable tools for sequential thinking
         };
 
         console.log('Making API request to:', this.buildApiUrl('v1/chat/completions'));
